@@ -1,10 +1,8 @@
-// screens/HomeScreen.js
-
 import { useEffect } from 'react';
 import { View, Image, StyleSheet, BackHandler, TouchableOpacity } from 'react-native';
 import { Text } from 'react-native-paper';
 
-const HomeScreen = () => {
+const HomeScreen = ({ navigation }) => {
     useEffect(() => {
         const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
             // Do nothing on back press to prevent going back to the previous screen
@@ -13,20 +11,38 @@ const HomeScreen = () => {
         return () => backHandler.remove();
     }, []);
 
+    const handleQuitPress = () => {
+        BackHandler.exitApp();
+    };
+
     return (
-        <View style={styles.container}>
-            <Image
-                source={require('../assets/your-image.jpg')}
-                style={styles.image}
-                resizeMode="cover"
-            />
-            <Text style={styles.title}>Mini Vent</Text>
-            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Game')}>
-                <Text style={styles.buttonText}>Start</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.button} onPress={handleQuitPress}>
-                <Text style={styles.buttonText}>Quit</Text>
-            </TouchableOpacity>
+        <View style={{
+            flex: 1,
+            backgroundColor: '#333',
+        }}>
+            <View style={{ flexDirection: 'row' }}>
+                <Image
+                    source={{ uri: "https://sunbeamschoolmau.edu.in/images/school-logo.png" }}
+                    style={styles.logo}
+                />
+                <Text style={{ marginTop: 40, marginLeft: 10, fontSize: 11, color: "white" }}>Made by Sunbeam English School Bhagwanpur</Text>
+            </View>
+
+            <View style={styles.container}>
+                <Image
+                    source={require('../i.png')}
+                    style={styles.image}
+                    resizeMode="cover"
+                />
+                <Text style={styles.title}>Mini Vent</Text>
+                <Text style={styles.subTitle}>An Economical Minituarized Ventilation System</Text>
+                <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Patients')}>
+                    <Text style={[styles.buttonText, { backgroundColor: "green" }]}>Start</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.button} onPress={handleQuitPress}>
+                    <Text style={[styles.buttonText, { backgroundColor: "red" }]}>Quit</Text>
+                </TouchableOpacity>
+            </View>
         </View>
     );
 };
@@ -38,25 +54,39 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    logo: {
+        width: 70,
+        height: 65,
+        marginLeft: 10,
+        marginTop: 10,
+    },
     image: {
-        width: '100%',
+        width: '90%',
         height: 200,
         marginBottom: 20,
+        borderRadius: 5
     },
     title: {
         fontSize: 24,
         fontWeight: 'bold',
         color: 'white',
-        marginBottom: 20,
+        marginBottom: 5,
+    },
+    subTitle: {
+        fontSize: 15,
+        color: "grey",
+        marginBottom: 20
     },
     button: {
-        width: '80%',
+        width: '30%',
         marginBottom: 10,
     },
     buttonText: {
         color: '#fff', // white text
         fontSize: 16,
         textAlign: 'center',
+        borderRadius: 5,
+        padding: 10
     },
 });
 

@@ -1,19 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, ImageBackground, Image } from 'react-native';
-import tw from "./export"
-import { useDeviceContext } from 'twrnc';
+import { StyleSheet, Text, View } from 'react-native';
 import Card from '../components/MyCard';
-const image = { uri: 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBw8PDQ8NDQ8QDw8NDQ0NDQ8PDw8PDw0NFREWFhURFRUYHSggGBolGxUVITEhJSkrLi4uFx8zODMtNyg5Oi0BCgoKBQUFDgUFDisZExkrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrK//AABEIALUBFgMBIgACEQEDEQH/xAAXAAEBAQEAAAAAAAAAAAAAAAAAAQcC/8QAGBABAQEBAQAAAAAAAAAAAAAAABEBgRL/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8AzIABUAFQBQQFQUEFQAAAAAAFQAAAAAAAAAAAAAAAAAAAAAAAAAFQBRAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEBQoBQAAAAAAAAAAABFAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEUARQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQUAAAAAABFAEFSgCgIpQAQBRAFEAUAARQAABFAAAAAAARQE4CggAKIAKgCiKCKgAqAAAAAAAAAAAAAAAKgAAAAAKgAAAAAAAAAAAAAAAAAAAAAAAqAAAKIAAAAAAAAAAAAAAAAAAAAAAAAAFAAQAUAAABAFBAFQAKACoAoAAigAAAAAAAAIqAqKAAgAAAAAACoAAAAAAAAAAAogCiKAAAAAAAgAAAKgCoAAAAAFAAAAAAAAKAAAAAAAKIAogCiACoAqKAIABQAABa59ABVABYAJqUAXAAAAAATNUAAAAAAADAAAAwAH/9k=' };
+import { Video, ResizeMode } from 'expo-av';
 
 export default function Monitor() {
-    useDeviceContext(tw);
     const [spo2, setSpo2] = useState(90);
     const [ecg, setEcg] = useState(90);
 
     useEffect(() => {
         const interval = setInterval(() => {
-            // Randomize values between 80 and 100
             const spo2Value = Math.floor(Math.random() * (100 - 80 + 1) + 80);
             const ecgValue = Math.floor(Math.random() * (100 - 80 + 1) + 80);
 
@@ -21,55 +17,59 @@ export default function Monitor() {
             setEcg(ecgValue);
         }, 1000);
 
-        return () => clearInterval(interval); // Clear interval on component unmount
+        return () => clearInterval(interval);
 
     }, []);
 
     return (
         <View style={styles.container}>
-            <ImageBackground source={image} resizeMode="cover" style={styles.image}>
-                <StatusBar style="auto" />
-                <Card />
-                <View style={{ flexDirection: 'row', justifyContent: "center", marginBottom: 80 }}>
-                    <View style={styles.mainCardView}>
-                        <View style={{ flexDirection: 'column', alignItems: 'center' }}>
-                            <Text>SPO2</Text>
-                            <View style={styles.subCardView}>
-                                <Text style={{ fontSize: 30 }}>{spo2}</Text>
-                            </View>
-                        </View>
-                    </View>
-                    <View style={styles.mainCardView}>
-                        <View style={{ flexDirection: 'column', alignItems: 'center' }}>
-                            <Text>ECG</Text>
-                            <View style={styles.subCardView}>
-                                <Text style={{ fontSize: 30 }}>{ecg}</Text>
-                            </View>
-                        </View>
-                    </View>
-                    <View style={styles.mainCardView}>
-                        <View style={{ flexDirection: 'column', alignItems: 'center' }}>
-                            <Text>Condition</Text>
-                            <View style={styles.subCardView}>
-                                <Text style={{ fontSize: 12, color: spo2 < 90 ? 'red' : 'green' }}>
-                                    {spo2 < 90 ? 'Critical' : 'Normal'}
-                                </Text>
-                            </View>
+            <StatusBar style="auto" />
+            <Card />
+            <View style={{ flexDirection: 'row', justifyContent: "center", marginBottom: 40 }}>
+                <View style={styles.mainCardView}>
+                    <View style={{ flexDirection: 'column', alignItems: 'center' }}>
+                        <Text>SPO2</Text>
+                        <View style={styles.subCardView}>
+                            <Text style={{ fontSize: 30 }}>{spo2}</Text>
                         </View>
                     </View>
                 </View>
-                <Image
-                    style={styles.card_image}
-                    source={{ uri: "https://i.stack.imgur.com/bUPoH.jpg" }}
-                />
-            </ImageBackground >
+                <View style={styles.mainCardView}>
+                    <View style={{ flexDirection: 'column', alignItems: 'center' }}>
+                        <Text>ECG</Text>
+                        <View style={styles.subCardView}>
+                            <Text style={{ fontSize: 30 }}>{ecg}</Text>
+                        </View>
+                    </View>
+                </View>
+                <View style={styles.mainCardView}>
+                    <View style={{ flexDirection: 'column', alignItems: 'center' }}>
+                        <Text>Condition</Text>
+                        <View style={styles.subCardView}>
+                            <Text style={{ fontSize: 12, color: spo2 < 90 ? 'red' : 'green' }}>
+                                {spo2 < 90 ? 'Critical' : 'Normal'}
+                            </Text>
+                        </View>
+                    </View>
+                </View>
+            </View>
+            <Video
+                source={{ uri: "https://static.videezy.com/system/resources/previews/000/038/626/original/alb_ekg004_1080p_24fps.mp4" }}
+                paused={false}
+                style={styles.video}
+                useNativeControls={false}
+                shouldPlay={true}
+                resizeMode={ResizeMode.CONTAIN}
+                isLooping
+            />
+
         </View >
     );
 }
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: '#333',
         alignItems: 'center',
         justifyContent: 'center',
     },
@@ -94,11 +94,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: "#757373",
         borderRadius: 15,
-        // shadowColor: Colors.shadow,
         flexDirection: 'column',
-        // justifyContent: 'space-between',
         marginTop: 6,
-        marginBottom: 6,
         marginLeft: 16,
         marginRight: 16,
     },
@@ -111,11 +108,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
-    card_image: {
+    video: {
         width: 350,
         height: 250,
-        borderRadius: 10,
         marginLeft: 15,
-        marginBottom: 20
-    },
+        marginRight: 15,
+    }
 });
