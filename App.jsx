@@ -5,7 +5,8 @@ import tw from "./export"
 import { useDeviceContext } from 'twrnc';
 import Card from './components/MyCard';
 const image = { uri: 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBw8PDQ8NDQ8QDw8NDQ0NDQ8PDw8PDw0NFREWFhURFRUYHSggGBolGxUVITEhJSkrLi4uFx8zODMtNyg5Oi0BCgoKBQUFDgUFDisZExkrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrK//AABEIALUBFgMBIgACEQEDEQH/xAAXAAEBAQEAAAAAAAAAAAAAAAAAAQcC/8QAGBABAQEBAQAAAAAAAAAAAAAAABEBgRL/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8AzIABUAFQBQQFQUEFQAAAAAAFQAAAAAAAAAAAAAAAAAAAAAAAAAFQBRAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEBQoBQAAAAAAAAAAABFAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEUARQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQUAAAAAABFAEFSgCgIpQAQBRAFEAUAARQAABFAAAAAAARQE4CggAKIAKgCiKCKgAqAAAAAAAAAAAAAAAKgAAAAAKgAAAAAAAAAAAAAAAAAAAAAAAqAAAKIAAAAAAAAAAAAAAAAAAAAAAAAAFAAQAUAAABAFBAFQAKACoAoAAigAAAAAAAAIqAqKAAgAAAAAACoAAAAAAAAAAAogCiKAAAAAAAgAAAKgCoAAAAAFAAAAAAAAKAAAAAAAKIAogCiACoAqKAIABQAABa59ABVABYAJqUAXAAAAAATNUAAAAAAADAAAAwAH/9k=' };
-export default function App() {
+
+export default function Monitor() {
   useDeviceContext(tw);
   const [spo2, setSpo2] = useState(90);
   const [ecg, setEcg] = useState(90);
@@ -23,6 +24,7 @@ export default function App() {
     return () => clearInterval(interval); // Clear interval on component unmount
 
   }, []);
+
   return (
     <View style={styles.container}>
       <ImageBackground source={image} resizeMode="cover" style={styles.image}>
@@ -94,7 +96,7 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     // shadowColor: Colors.shadow,
     flexDirection: 'column',
-    justifyContent: 'space-between',
+    // justifyContent: 'space-between',
     marginTop: 6,
     marginBottom: 6,
     marginLeft: 16,
@@ -117,5 +119,3 @@ const styles = StyleSheet.create({
     marginBottom: 20
   },
 });
-
-//
