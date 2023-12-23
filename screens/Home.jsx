@@ -30,12 +30,12 @@ const HomeScreen = ({ navigation }) => {
 
             <View style={styles.container}>
                 <Image
-                    source={require('../i.png')}
+                    source={require('../j.png')}
                     style={styles.image}
                     resizeMode="cover"
                 />
-                <Text style={styles.title}>Mini Vent</Text>
-                <Text style={styles.subTitle}>An Economical Minituarized Ventilation System</Text>
+                <Text style={styles.title}>Mini ICU</Text>
+                <Text style={styles.subTitle}>An Economical Minituarized ICU System</Text>
                 <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Patients')}>
                     <Text style={[styles.buttonText, { backgroundColor: "green" }]}>Start</Text>
                 </TouchableOpacity>

@@ -7,14 +7,17 @@ import { Video, ResizeMode } from 'expo-av';
 export default function Monitor() {
     const [spo2, setSpo2] = useState(90);
     const [ecg, setEcg] = useState(90);
+    const [emg, setEmg] = useState(90);
 
     useEffect(() => {
         const interval = setInterval(() => {
             const spo2Value = Math.floor(Math.random() * (100 - 80 + 1) + 80);
             const ecgValue = Math.floor(Math.random() * (100 - 80 + 1) + 80);
+            const emgValue = Math.floor(Math.random() * (100 - 80 + 1) + 80);
 
             setSpo2(spo2Value);
             setEcg(ecgValue);
+            setEmg(emgValue)
         }, 1000);
 
         return () => clearInterval(interval);
@@ -25,20 +28,30 @@ export default function Monitor() {
         <View style={styles.container}>
             <StatusBar style="auto" />
             <Card />
-            <View style={{ flexDirection: 'row', justifyContent: "center", marginBottom: 40 }}>
-                <View style={styles.mainCardView}>
-                    <View style={{ flexDirection: 'column', alignItems: 'center' }}>
-                        <Text>SPO2</Text>
-                        <View style={styles.subCardView}>
-                            <Text style={{ fontSize: 30 }}>{spo2}</Text>
-                        </View>
-                    </View>
-                </View>
+            <View style={{ flexDirection: 'row', justifyContent: "center", marginTop: 10 }}>
                 <View style={styles.mainCardView}>
                     <View style={{ flexDirection: 'column', alignItems: 'center' }}>
                         <Text>ECG</Text>
                         <View style={styles.subCardView}>
                             <Text style={{ fontSize: 30 }}>{ecg}</Text>
+                        </View>
+                    </View>
+                </View>
+                <View style={styles.mainCardView}>
+                    <View style={{ flexDirection: 'column', alignItems: 'center' }}>
+                        <Text>EMG</Text>
+                        <View style={styles.subCardView}>
+                            <Text style={{ fontSize: 30 }}>{emg}</Text>
+                        </View>
+                    </View>
+                </View>
+            </View>
+            <View style={{ flexDirection: 'row', justifyContent: "center", marginTop: 10}}>
+                <View style={styles.mainCardView}>
+                    <View style={{ flexDirection: 'column', alignItems: 'center' }}>
+                        <Text>SPO2</Text>
+                        <View style={styles.subCardView}>
+                            <Text style={{ fontSize: 30 }}>{spo2}</Text>
                         </View>
                     </View>
                 </View>
@@ -95,7 +108,6 @@ const styles = StyleSheet.create({
         backgroundColor: "#757373",
         borderRadius: 15,
         flexDirection: 'column',
-        marginTop: 6,
         marginLeft: 16,
         marginRight: 16,
     },

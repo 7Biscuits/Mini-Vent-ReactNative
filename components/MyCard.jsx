@@ -19,7 +19,7 @@ export default function MyCard() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        marginTop: 50,
+        marginTop: 20,
         alignItems: "center",
     },
     card_template: {
